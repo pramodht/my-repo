@@ -1,0 +1,55 @@
+<apex:page standardController="Case_Account__c">
+
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    
+    <script src="/soap/ajax/31.0/apex.js" type="text/javascript"></script> 
+
+    <script src="/soap/ajax/31.0/connection.js" type="text/javascript"></script>
+    <script>
+            
+    
+    $(document).ready(function()
+      {
+       
+        alert('test');
+        
+        var contactCenter = sforce.connection.query("select Contact_Center__c from user");
+        var query1 = sforce.connection.query("select id, Caseid__c, AccountId__c  from Case_Account__c where caseid__c ='"+caseid__c+"'");
+        var record = query1.getArray("record")
+        if(records.length>0)
+        {
+            var case_Account = records[0];
+            
+           
+            if({!ISPICKVAL($User.Contact_Center__c, 'Korea')} || (contactCenter== 'China P&G') || (contactCenter== 'China TCI') || (contactCenter== 'China Sykes') || (contactCenter== 'Taiwan') || (contactCenter== 'Hong Kong')) 
+            {
+             alert('test');
+            window.open("/apex/AccountNew_Japancid="+case_Account.caseid__c+"&aid="+case_Account.accountid__c+"&caid="+acase_Account.id);
+            }
+            else
+            {
+                if(contactCenter== 'Japan')
+                {
+                     alert('test');
+                    window.open("/apex/AccountJapan?cid="+case_Account.caseid__c+"&aid="+case_Account.accountid__c+"&caid="+acase_Account.id);
+                }
+                else
+                {
+                    if({!ISPICKVAL($User.Contact_Center__c, 'PGP')})
+                    {
+                       
+                          alert('test'); 
+                         window.open("/apex/PGPAccountNew?cid="+case_Account.caseid__c+"&aid="+case_Account.accountid__c+"&caid="+acase_Account.id);      
+                    }
+                    else
+                    {
+                          alert('test');
+                         window.open("/apex/AccountNew?cid="+case_Account.caseid__c+"&aid="+case_Account.accountid__c+"&caid="+acase_Account.id); 
+                    }
+                }
+            }
+        }
+      });
+    </script>
+ 
+</apex:page>
